@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:id="@+id/voltar"
+            android:adjustViewBounds="true"
+            android:maxWidth="52dp"
+            android:maxHeight="52dp"
+            android:scaleType="fitCenter" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imagem"
+            android:layout_below="@id/voltar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="23dp"
+            android:id="@+id/nome_label"
+            android:text="Nome: "
+            android:layout_below="@id/imagem"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="23dp"
+            android:id="@+id/numero_label"
+            android:text="Número: "
+            android:layout_below="@id/nome_label" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/nome"
+        android:layout_below="@id/imagem"
+        android:layout_toRightOf="@id/nome_label" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/numero"
+        android:layout_below="@id/nome"
+        android:layout_toRightOf="@id/numero_label"/>
+    <ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/call"
+    android:id="@+id/Ligar"
+    android:layout_below="@id/numero"
+        android:adjustViewBounds="true"
+        android:maxWidth="62dp"
+        android:maxHeight="52dp"
+        android:scaleType="fitCenter" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mensagens"
+            android:layout_below="@id/Ligar"
+            android:id="@+id/ir_pra"/>
+
+    </RelativeLayout>
+</LinearLayout>
