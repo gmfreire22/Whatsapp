@@ -1,16 +1,14 @@
 package com.example.gmfre.whatsapp;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class MyAsyncTask extends AsyncTask<String, Integer, String>{
+
     TextView textView;
     ProgressBar progressBar;
     Context context;
@@ -52,7 +50,7 @@ public class MyAsyncTask extends AsyncTask<String, Integer, String>{
         textView.setVisibility(View.GONE);
         progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
-        Toast.makeText(context,"carregando imagem!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"carregando mensagem...", Toast.LENGTH_SHORT).show();
         super.onPreExecute();
     }
 }

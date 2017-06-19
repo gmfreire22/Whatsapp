@@ -1,14 +1,11 @@
 package com.example.gmfre.whatsapp;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.android.volley.Response;
 
 public class Fourth_Activity extends AppCompatActivity {
     String nome;
@@ -17,6 +14,13 @@ public class Fourth_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fourth_activity);
+    //    Response.Listener googleListener = new Response.Listener<String>(){
+  //          @Override
+//            public void onResponse(String response){
+
+          //  }
+        //};
+        //HttpHelper.getInstance(this).getGoogleHTTP(googleListener);
         nome = getIntent().getStringExtra("dado_nome");
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.carregando);
         final TextView textView = (TextView) findViewById(R.id.mensagem);
