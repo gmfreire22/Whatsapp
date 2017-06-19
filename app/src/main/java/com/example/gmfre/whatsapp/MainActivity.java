@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     String contact_display_name;
     Intent intent;
     boolean ler_os_contactos=false;
+    Saving_data saving_data;
+    String fileName = "dados";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +58,25 @@ public class MainActivity extends AppCompatActivity {
         Log.e("=)", "Você está vendo o meu Log");
         imagem_padrao = BitmapFactory.decodeResource(getResources(), R.drawable.imagem);
         listaVisão = (ListView) findViewById(R.id.ListView);
-        contactos.add(new Contactos("+5511943749019", imagem_padrao, "Ricardo"));
-        contactos.add(new Contactos("+5511943749019", imagem_padrao, "Jaquim"));
-        contactos.add(new Contactos("+5511944749019", imagem_padrao, "João"));
-        contactos.add(new Contactos("+5511943749019", imagem_padrao, "Zé Manel"));
-        contactos.add(new Contactos("+55119437492019", imagem_padrao, "Ana"));
-        if(ler_os_contactos) {
-            getAndroidContacts();
+        saving_data=new Saving_data(this, fileName);
+        try {
+            contactos = saving_data.getData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(saving_data.nao_tem_dados()){
+            contactos = new ArrayList<>();
+            contactos.add(new Contactos("+5511943749019", imagem_padrao, "Ricardo"));
+            contactos.add(new Contactos("+5511943749019", imagem_padrao, "Jaquim"));
+            contactos.add(new Contactos("+5511944749019", imagem_padrao, "João"));
+            contactos.add(new Contactos("+5511943749019", imagem_padrao, "Zé Manel"));
+            contactos.add(new Contactos("+55119437492019", imagem_padrao, "Ana"));
+            if(ler_os_contactos) {
+                getAndroidContacts();
+            }
+            saving_data.addTodosContatos(contactos);
         }
 
         adapter = new Adapter1(this, contactos);
@@ -74,7 +89,15 @@ public class MainActivity extends AppCompatActivity {
             }});
         if(getIntent().hasExtra("byteArray")&&((getIntent().hasExtra("addContatoNome"))||(getIntent().hasExtra("addContatoNumero")))){
             Bitmap b = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("byteArray"), 0, getIntent().getByteArrayExtra("byteArray").length);
-            contactos.add(new Contactos(getIntent().getStringExtra("addContatoNumero"), b, getIntent().getStringExtra("addContatoNome")));
+            Contactos novoContato = new Contactos(getIntent().getStringExtra("addContatoNumero"), b, getIntent().getStringExtra("addContatoNome"));
+            contactos.add(novoContato);
+            saving_data.adicionarContactos(novoContato);
+            try {
+                saving_data.saveFile();
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
             adapter = new Adapter1(this, contactos);
             listaVisão.setAdapter(adapter);
             Collections.sort(contactos, new Comparator<Contactos>() {
@@ -162,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i,1);
             }
         });
-
     }
     public void getAndroidContacts(){
         Cursor cursor_Android_contacts;

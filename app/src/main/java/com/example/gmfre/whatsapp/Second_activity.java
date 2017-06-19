@@ -2,6 +2,7 @@ package com.example.gmfre.whatsapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class Second_activity  extends AppCompatActivity {
     String nome_em_String;
     String numero_em_String;
     Bitmap imageBitmap;
+    Saving_data saving_data;
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -71,10 +73,13 @@ public class Second_activity  extends AppCompatActivity {
                     ByteArrayOutputStream bs = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
                     intent.putExtra("byteArray", bs.toByteArray());
+
                 }
                 else{
                     Log.e("Opa!", "Nenhuma imagem");
+                    Bitmap bitmap = ((BitmapDrawable)thumbnail.getDrawable()).getBitmap();
                 }
+
                 if(intent.resolveActivity(getPackageManager()) != null ) {
                     startActivityForResult(intent, REQUEST_CODE_CONSTANT);
                 }
